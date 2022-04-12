@@ -1,28 +1,32 @@
 import React, { useState } from 'react';
 import "./style.css";
 import Menu from './menuApi';
+import MenuCard from './MenuCard';
 
 const Restaurant = () => {
-    // const [menuData, setMenuData] = useState(intialdata);
+    const [menuData, setMenuData] = useState(Menu);
+
+    const filterItem = (category) => {
+        const updatedList = Menu.filter((curElem) => {
+            return curElem.category === category ;
+        });
+        setMenuData(updatedList);
+    };
   return (
     <>
-    <div className="card-container">
-        <div className="card">
-            <div className="card-body">
-                <span className="card-number card-circle subtle">1</span>
-                <span className="card-author subtle">Breakfast</span>
-                <h2 className='card-title'>maggi</h2>
-                <span className="card-description subtle">
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime quasi dolore adipisci ducimus quidem, autem dolorum eos placeat hic assumenda beatae illum repudiandae? Ducimus similique est eligendi reprehenderit ipsam ut voluptatum cum voluptatibus dignissimos vitae?
-                </span>
-                <div className="card-read">Read</div>
+        <nav className="navbar">
+            <div className="btn-group">
+                <button className='btn-group__item' onClick={filterItem("breakfast")}>Breakfast</button>
+                <button className='btn-group__item'>Lunch</button>
+                <button className='btn-group__item'>Evening</button>
+                <button className='btn-group__item'>Dinner</button>
+                <button className='btn-group__item'>All</button>
             </div>
-            {/* <img src={image} alt="images" className="card-media" /> */}
-            <span className="card-tag subtle">Order Now</span>
-        </div>
-    </div>
+        </nav>
+
+    <MenuCard menuData={menuData} />
     </>
-  )
+  );
 }
 
 export default Restaurant;
